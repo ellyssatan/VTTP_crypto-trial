@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TOP MARKET CAP FULL DATA</title>
+    <style>
+        table, td {
+            padding: 10px;
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+        .text {
+            text-align: center
+        }
+        .centre {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <h1 class="text">
+        TOP <span data-th-text="${number}"></span> LIST
+    </h1>
+
+    <form action="/crypto" method="POST">
+        LIMIT:
+        <input type="text" name="number" size="20" required>
+
+        SYMBOL:
+        <input type="text" name="sym" size="20" required>
+
+        <button type="submit">Retrieve Results</button>
+    </form>
+    <hr>
+
+    <table class="centre">
+        <tr>
+            <!-- <td>Rank</td> -->
+            <td>Asset</td>
+            <td>Price</td>
+            <td>Market Cap</td>
+            <td>Volume Day To</td>
+            <td>High Day</td>
+            <td>Low Day</td>
+        </tr>
+        
+        <tr data-th-each=" c : ${list}">
+            <!-- <td>
+                <span rank></span>
+            </td> -->
+            <td>
+                <span data-th-text="${c.asset}"></span>
+            </td>
+            <td>
+                <span data-th-text="${c.price}"></span> 
+            </td>
+            <td>
+                <span data-th-text="${c.mktCap}"></span> 
+            </td>
+            <td>
+                <span data-th-text="${c.volumeDayTo}"></span> 
+            </td>
+            <td>
+                <span data-th-text="${c.highDay}"></span> 
+            </td>
+            <td>
+                <span data-th-text="${c.lowDay}"></span> 
+            </td>   
+        </tr>
+    </table>
+    
+</body>
+</html>
