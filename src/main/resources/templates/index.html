@@ -28,50 +28,50 @@
 
     <form action="/crypto" method="POST">
         LIMIT:
-        <input type="text" name="number" size="20" required>
+        <input type="text" name="number" size="20">
 
         SYMBOL:
-        <input type="text" name="sym" size="20" required>
+        <input type="text" name="sym" size="20">
 
         <button type="submit">Retrieve Results</button>
     </form>
-    <hr>
-
-    <table class="centre">
-        <tr>
-            <!-- <td>Rank</td> -->
-            <td>Asset</td>
-            <td>Price</td>
-            <td>Market Cap</td>
-            <td>Volume Day To</td>
-            <td>High Day</td>
-            <td>Low Day</td>
-        </tr>
-        
-        <tr data-th-each=" c : ${list}">
-            <!-- <td>
-                <span rank></span>
-            </td> -->
-            <td>
-                <span data-th-text="${c.asset}"></span>
-            </td>
-            <td>
-                <span data-th-text="${c.price}"></span> 
-            </td>
-            <td>
-                <span data-th-text="${c.mktCap}"></span> 
-            </td>
-            <td>
-                <span data-th-text="${c.volumeDayTo}"></span> 
-            </td>
-            <td>
-                <span data-th-text="${c.highDay}"></span> 
-            </td>
-            <td>
-                <span data-th-text="${c.lowDay}"></span> 
-            </td>   
-        </tr>
-    </table>
-    
+    <br>
+    <!-- <div> -->
+        <table>
+            <tr>
+                <td>Rank</td>
+                <td>Asset</td>
+                <td>Price</td>
+                <td>Market Cap</td>
+                <td>Volume Day To</td>
+                <td>High Day</td>
+                <td>Low Day</td>
+            </tr>
+            
+            <tr data-th-each="c : ${list}">
+                <td>
+                    <span data-th-text="${c.rank}"></span>
+                </td>
+                <td>
+                    <span data-th-text="${c.asset}"></span>
+                </td>
+                <td>
+                    <span data-th-text="${c.price}"></span> 
+                </td>
+                <td>
+                    <span data-th-text="${c.mktCap}"></span> 
+                </td>
+                <td>
+                    <span data-th-text="${c.volumeDayTo}"></span> 
+                </td>
+                <td>
+                    <span data-th-text="${c.highDay}"></span> 
+                </td>
+                <td>
+                    <span data-th-text="${c.lowDay}"></span> 
+                </td>   
+            </tr>
+        </table>
+    <!-- </div> -->
 </body>
 </html>

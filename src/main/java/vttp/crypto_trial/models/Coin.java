@@ -1,6 +1,5 @@
 package vttp.crypto_trial.models;
 
-import jakarta.json.Json;
 import jakarta.json.JsonObject;
 
 public class Coin {
@@ -39,14 +38,12 @@ public class Coin {
     public void setHighDay(String highDay) {    this.highDay = highDay;     }
 
     public String getLowDay() {     return lowDay;  }
-    public void setLowDay(String lowDay) {
-        this.lowDay = lowDay;
-    }
+    public void setLowDay(String lowDay) {      this.lowDay = lowDay;   }
 
     // Convert from json to Model object
-    public static Coin create(JsonObject coinInfoJo, JsonObject displayJo) {
+    public static Coin create(JsonObject coinInfoJo, JsonObject displayJo, int rank) {
         Coin c = new Coin();
-        // c.setRank(jo.getString(""));
+        c.setRank(Integer.toString(rank));
         c.setName(coinInfoJo.getString("Name"));
         c.setFullName(coinInfoJo.getString("FullName"));
         // c.setAsset(coinInfoJo.getString("FullName") + "(" + coinInfoJo.getString("Name") + ")");
@@ -55,21 +52,10 @@ public class Coin {
         c.setVolumeDayTo(displayJo.getString("VOLUMEDAYTO"));
         c.setHighDay(displayJo.getString("HIGHDAY"));
         c.setLowDay(displayJo.getString("LOWDAY"));
-        // System.out.printf(">>>> COIN: %s\n", c.toString());
-        // System.out.printf(">>>>>>> setAsset:   %s", coinInfoJo.getString("FullName") + "(" + coinInfoJo.getString("Name") + ")");
         return c;
     }
 
-    public JsonObject toJson() {
-        return Json.createObjectBuilder()
-            .add("FullName", asset)
-            .add("PRICE", price)
-            .add("MKTCAP", mktCap)
-            .add("VOLUMEDAYTO", volumeDayTo)
-            .add("HIGHDAY", highDay)
-            .add("LOWDAY", lowDay)
-            .build();
-    }
+
 
     
 }

@@ -2,7 +2,6 @@ package vttp.crypto_trial.services;
 
 import java.io.Reader;
 import java.io.StringReader;
-import java.net.URLEncoder;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -29,7 +28,6 @@ public class CoinService {
 
     public List<Coin> getCoins(String limit, String tsym) {
 
-        // String encodedCity = URLEncoder.encode(city, StandardCharsets.UTF_8);
         String payload;
 
         // Create url with query string (add parameters)
@@ -78,14 +76,15 @@ public class CoinService {
 
         List<Coin> list = new LinkedList<>();
         for (int i = 0; i < coinList.size(); i++) {
-            // loop throigh the top _ coins
+            // loop through the top _ coins
             JsonObject jo = coinList.getJsonObject(i);
             JsonObject coinInfoJo = jo.getJsonObject("CoinInfo");
             
             JsonObject coinDetails = jo.getJsonObject("DISPLAY");
             JsonObject displayJo = coinDetails.getJsonObject("USD");
-            list.add(Coin.create(coinInfoJo, displayJo));
+            list.add(Coin.create(coinInfoJo, displayJo, i+1));
         }
+        System.out.printf(">>> LIST: %s\n", list);
         return list;
     }
 }

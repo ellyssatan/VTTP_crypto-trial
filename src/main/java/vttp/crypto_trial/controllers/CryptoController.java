@@ -30,8 +30,6 @@ public class CryptoController {
 
         model.addAttribute("number", limit);
         model.addAttribute("list", list);
-        // model.addAttribute("limit", limit);
-        // model.addAttribute("tsym", tsym);
         return "index";
     }
 }
