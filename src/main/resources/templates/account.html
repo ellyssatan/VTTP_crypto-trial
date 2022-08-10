@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TOP MARKET CAP FULL DATA</title>
+    <style>
+        table, td {
+            padding: 10px;
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+        .text {
+            text-align: center
+        }
+
+        .row {
+            display: flex;
+        }
+        
+        .column {
+            flex: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1><span data-th-text="${user}"></span>'s Cryptocurrency Dashboard</h1>
+
+    <div class="row">
+        <div class="column">
+            <form action="/crypto" method="POST">
+                <h1>
+                    Top <span data-th-text="${number}"></span> List of Cryptocurrencies
+                </h1>
+                LIMIT:
+                <input type="text" name="number" size="20">
+        
+                SYMBOL:
+                <input type="text" name="sym" size="20">
+        
+                <button type="submit">Retrieve Results</button>
+            </form>
+        </div>
+
+        <div class="column"></div>
+            <form action="/tsym" method="GET">
+                <h1>Cryptocurrency</h1>
+                Cryptocurrency:
+                <input type="text" name="fsym" size="20" placeholder="Cryptocurrency name">
+                Ticker Symbol:
+                <input type="text" name="tsyms" size="20" placeholder="Ticker">
+                <button type="submit">GET</button>    
+            </form>            
+        </div>
+        <div class="column">
+            <h2>Add to Watchlist</h2>
+            <form action="/watchlist" method="POST">
+                Add to Watchlist:
+                <input type="text" placeholder="Ticker Symbol">
+                <button type="submit">Add</button>
+
+            </form>
+
+        </div>
+    </div>
+
+
+    <br>
+
+
+    <div class="row">
+        <div class="column">
+            <table>
+                <tr>
+                    <td>Rank</td>
+                    <td>Asset</td>
+                    <td>Price</td>
+                    <td>Market Cap</td>
+                    <td>Volume Day To</td>
+                    <td>High Day</td>
+                    <td>Low Day</td>
+                </tr>
+                
+                <tr data-th-each=" c : ${list}">
+                    <td>
+                        <span data-th-text="${c.rank}"></span>
+                    </td>
+                    <td>
+                        <span data-th-text="${c.asset}"></span>
+                    </td>
+                    <td>
+                        <span data-th-text="${c.price}"></span> 
+                    </td>
+                    <td>
+                        <span data-th-text="${c.mktCap}"></span> 
+                    </td>
+                    <td>
+                        <span data-th-text="${c.volumeDayTo}"></span> 
+                    </td>
+                    <td>
+                        <span data-th-text="${c.highDay}"></span> 
+                    </td>
+                    <td>
+                        <span data-th-text="${c.lowDay}"></span> 
+                    </td>   
+                </tr>
+            </table>
+        </div>
+    
+        <div class="column">
+            Price:
+            <span data-th-text="${price}"></span>
+        </div>
+
+        <div class="column">
+            Watchlist
+            <span data-th-text="${contents}"></span>
+            <table>
+                <tr>
+                    <td>Rank</td>
+                    <td>Asset</td>
+                    <td>Price</td>
+                    <td>Market Cap</td>
+                    <td>Volume Day To</td>
+                    <td>High Day</td>
+                    <td>Low Day</td>
+                </tr>
+                
+                <tr data-th-each=" c : ${list}">
+                    <td>
+                        <span data-th-text="${c.rank}"></span>
+                    </td>
+                    <td>
+                        <span data-th-text="${c.asset}"></span>
+                    </td>
+                    <td>
+                        <span data-th-text="${c.price}"></span> 
+                    </td>
+                    <td>
+                        <span data-th-text="${c.mktCap}"></span> 
+                    </td>
+                    <td>
+                        <span data-th-text="${c.volumeDayTo}"></span> 
+                    </td>
+                    <td>
+                        <span data-th-text="${c.highDay}"></span> 
+                    </td>
+                    <td>
+                        <span data-th-text="${c.lowDay}"></span> 
+                    </td>   
+                </tr>
+            </table>
+
+            
+        </div>
+    
+</body>
+</html>
