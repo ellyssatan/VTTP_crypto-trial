@@ -14,9 +14,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import vttp.crypto_trial.models.Coin;
+import vttp.crypto_trial.models.News;
 import vttp.crypto_trial.models.Profile;
 import vttp.crypto_trial.repositories.CoinRepository;
 import vttp.crypto_trial.services.CoinService;
+import vttp.crypto_trial.services.NewsService;
 
 @Controller
 @RequestMapping(path = "/account")
@@ -24,6 +26,9 @@ public class CryptoController {
 
     @Autowired
     private CoinService cSvc;
+
+    @Autowired
+    private NewsService nSvc;
 
     @Autowired
     private CoinRepository cRepo;
@@ -86,13 +91,29 @@ public class CryptoController {
         return "test";
     }
 
-    @GetMapping(path = "/watchlist")
-    public String getWatchlist(@RequestParam String fsyms, Model model) {
-
+    @PostMapping(path = "/watchlist")
+    public String getWatchlist(@RequestBody MultiValueMap<String, String> form, Model model) {
+        
+        String user = form.getFirst("user");
+        String fsyms = form.getFirst("fsyms");
         Coin watchlist = cSvc.getWatchlist(fsyms.toUpperCase(), "USD");
         System.out.printf(">>> Watchlist: %s", watchlist);
 
+        model.addAttribute("user", user);
         model.addAttribute("watchlist", watchlist);
         return "test";
     }
+
+    @PostMapping(path = "/news")
+    public String getNews(Model model) {
+        
+        // String user = form.getFirst("user");
+        List<News> newsList = nSvc.getNews();
+        System.out.printf(">>> newsList: %s", newsList);
+
+        // model.addAttribute("user", user);
+        model.addAttribute("newsList", newsList);
+        return "test";
+    }
+
 }
