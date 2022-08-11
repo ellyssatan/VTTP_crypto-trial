@@ -25,7 +25,7 @@ import vttp.crypto_trial.repositories.CoinRepository;
 
 @Service
 public class CoinService {
-    private static final String URL = "https://min-api.cryptocompare.com/data/top/mktcapfull";
+    private static final String topURL = "https://min-api.cryptocompare.com/data/top/mktcapfull";
     private static final String tsymURL = "https://min-api.cryptocompare.com/data/price";
     private static final String URL3 = "https://min-api.cryptocompare.com/data/pricemultifull";
 
@@ -41,7 +41,7 @@ public class CoinService {
         String payload;
 
         // Create url with query string (add parameters)
-        String uri = UriComponentsBuilder.fromUriString(URL)
+        String uri = UriComponentsBuilder.fromUriString(topURL)
         .queryParam("limit", limit)
         .queryParam("tsym", tsym)
         .queryParam("api_key", key)
@@ -87,15 +87,14 @@ public class CoinService {
         List<Coin> list = new LinkedList<>();
         for (int i = 0; i < coinList.size(); i++) {
             // loop through the top _ coins
-
             JsonObject jo = coinList.getJsonObject(i);
+
             JsonObject coinInfoJo = jo.getJsonObject("CoinInfo");
             
             JsonObject coinDetails = jo.getJsonObject("DISPLAY");
             JsonObject displayJo = coinDetails.getJsonObject("USD");
             list.add(Coin.create(coinInfoJo, displayJo, i+1));
         }
-        System.out.printf(">>> LIST: %s\n\n", list);
         return list;
     }
 
@@ -205,8 +204,6 @@ public class CoinService {
 
 
         Coin c = Coin.create(coinDisplay, fsyms);
-
-        System.out.printf(">>> result: %s\n\n", c);
         return c;
     }
 }

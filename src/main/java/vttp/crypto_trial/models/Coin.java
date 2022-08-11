@@ -30,7 +30,7 @@ public class Coin {
     public String getFullName() {   return fullName;    }
     public void setFullName(String fullName) {      this.fullName = fullName;   }
 
-    public String getAsset() {   return this.asset = this.fullName + " (" + this.name + ")";    }
+    public String getAsset() {   return asset = this.fullName + " (" + this.name + ")";    }
     public void setAsset(String asset) {      this.asset = this.fullName + " (" + this.name + ")";   }
 
     public String getPrice() {      return price;   }
@@ -60,13 +60,14 @@ public class Coin {
     public String getCirSupply() {      return cirSupply;   }
     public void setCirSupply(String cirSupply) {    this.cirSupply = cirSupply;     }
 
-    // Convert from json to Model object
+    // Convert from JsonObject to Model object (API 1)
     public static Coin create(JsonObject coinInfoJo, JsonObject displayJo, int rank) {
         Coin c = new Coin();
         c.setRank(Integer.toString(rank));
-        c.setName(coinInfoJo.getString("Name"));
+        c.setName(coinInfoJo.getString("Name" + ""));
         c.setFullName(coinInfoJo.getString("FullName"));
-        // c.setAsset(coinInfoJo.getString("FullName") + "(" + coinInfoJo.getString("Name") + ")");
+        c.setAsset(coinInfoJo.getString("FullName") + "(" + coinInfoJo.getString("Name") + ")");
+        // c.setAsset(c.getFullName() + "(" + c.getName() + ")");
         c.setPrice(displayJo.getString("PRICE"));
         c.setMktCap(displayJo.getString("MKTCAP"));
         c.setVolume24(displayJo.getString("VOLUME24HOUR"));
@@ -76,17 +77,28 @@ public class Coin {
         c.setChangePCTDay(displayJo.getString("CHANGEPCTDAY"));
         c.setChangePCTHour(displayJo.getString("CHANGEPCTHOUR"));
         c.setCirSupply(displayJo.getString("CIRCULATINGSUPPLY"));
-        // System.out.printf(">>>> COIN: %s\n", c.toString());
+        System.out.printf(">>>> COIN: %s\n", c.toString());
         // System.out.printf(">>>>>>> setAsset:   %s", coinInfoJo.getString("FullName") + "(" + coinInfoJo.getString("Name") + ")");
         return c;
     }
 
-    // Convert from json to Model object
+    // API 2
+    public static Coin createTsym(JsonObject coins, String tsyms) {
+        Coin c = new Coin();
+        c.setPrice(coins.get(tsyms).toString());
+
+        System.out.printf(">>>> COIN PRICE: %s\n", c.getPrice());
+
+        return c;
+    }
+
+    // Convert from JsonObject to Model object (API 3)
     public static Coin create(JsonObject coinDisplay, String fsym) {
         Coin c = new Coin();
         c.setName(fsym);
         c.setPrice(coinDisplay.getString("PRICE"));
         c.setMktCap(coinDisplay.getString("MKTCAP"));
+        c.setVolume24(coinDisplay.getString("VOLUME24HOUR"));
         c.setOpenDay(coinDisplay.getString("OPENDAY"));
         c.setHighDay(coinDisplay.getString("HIGHDAY"));
         c.setLowDay(coinDisplay.getString("LOWDAY"));
@@ -98,7 +110,7 @@ public class Coin {
         return c;
     }
 
-    // Create Coin from json
+    // Create Coin from JsonObject
     public static Coin create(JsonObject jo) {
         Coin c = new Coin();
         c.setRank(jo.getString("rank"));
@@ -117,24 +129,19 @@ public class Coin {
         return c;
     }
 
-    // Create Coin from string
+    // Create Coin from JsonString
     public static Coin create(String jsonStr) {
+
+        // {"item":"banana", "quan":"5"}
+
+        System.out.printf(">>>>JSON STRING: %s", jsonStr);
         StringReader reader = new StringReader(jsonStr);
         JsonReader r = Json.createReader(reader);
+
         return create(r.readObject());
     }
 
-    public static Coin createTsym(JsonObject coins, String tsyms) {
-        Coin c = new Coin();
-        c.setPrice(coins.get(tsyms).toString());
-
-        System.out.printf(">>>> COIN PRICE: %s\n", c.getPrice());
-        System.out.printf(">>>> COIN: %s\n", c);
-
-        return c;
-    }
-
-    // construct json for saving
+    // Convert to JsonObject for saving
     public JsonObject toJson() {
         return Json.createObjectBuilder()
             .add("FullName", asset)

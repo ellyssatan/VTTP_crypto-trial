@@ -77,9 +77,13 @@
                     <td>Asset</td>
                     <td>Price</td>
                     <td>Market Cap</td>
-                    <td>Volume Day To</td>
+                    <td>Volume 24 Hours</td>
+                    <td>Open Day</td>
                     <td>High Day</td>
                     <td>Low Day</td>
+                    <td>Change PCT Day</td>
+                    <td>Change PCT Hour</td>
+                    <td>Circulating Supply</td>
                 </tr>
                 
                 <tr data-th-each=" c : ${list}">
@@ -96,14 +100,17 @@
                         <span data-th-text="${c.mktCap}"></span> 
                     </td>
                     <td>
-                        <span data-th-text="${c.volumeDayTo}"></span> 
+                        <span data-th-text="${c.volume24}"></span> 
                     </td>
                     <td>
                         <span data-th-text="${c.highDay}"></span> 
                     </td>
                     <td>
                         <span data-th-text="${c.lowDay}"></span> 
-                    </td>   
+                    </td>
+                    <td>
+                        <span data-th-text="${c.cirSupply}"></span> 
+                    </td> 
                 </tr>
             </table>
         </div>
@@ -118,21 +125,21 @@
             <span data-th-text="${contents}"></span>
             <table>
                 <tr>
-                    <td>Rank</td>
-                    <td>Asset</td>
+                    <td>Name</td>
                     <td>Price</td>
                     <td>Market Cap</td>
-                    <td>Volume Day To</td>
+                    <td>Volume 24 Hours</td>
+                    <td>Open Day</td>
                     <td>High Day</td>
                     <td>Low Day</td>
+                    <td>Change PCT Day</td>
+                    <td>Change PCT Hour</td>
+                    <td>Circulating Supply</td>
                 </tr>
                 
-                <tr data-th-each=" c : ${list}">
+                <tr data-th-each="c : ${list}">
                     <td>
-                        <span data-th-text="${c.rank}"></span>
-                    </td>
-                    <td>
-                        <span data-th-text="${c.asset}"></span>
+                        <span data-th-text="${c.name}"></span>
                     </td>
                     <td>
                         <span data-th-text="${c.price}"></span> 
@@ -141,14 +148,26 @@
                         <span data-th-text="${c.mktCap}"></span> 
                     </td>
                     <td>
-                        <span data-th-text="${c.volumeDayTo}"></span> 
+                        <span data-th-text="${c.volume24}"></span> 
+                    </td>
+                    <td>
+                        <span data-th-text="${c.openDay}"></span> 
                     </td>
                     <td>
                         <span data-th-text="${c.highDay}"></span> 
                     </td>
                     <td>
                         <span data-th-text="${c.lowDay}"></span> 
-                    </td>   
+                    </td>
+                    <td>
+                        <span data-th-text="${c.changePCTDay}"></span> 
+                    </td>
+                    <td>
+                        <span data-th-text="${c.changePCTHour}"></span> 
+                    </td>
+                    <td>
+                        <span data-th-text="${c.cirSupply}"></span> 
+                    </td> 
                 </tr>
             </table>
 

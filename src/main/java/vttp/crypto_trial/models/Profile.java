@@ -12,6 +12,8 @@ import jakarta.json.JsonReader;
 public class Profile {
     private String name;
     private List<Coin> contents = new LinkedList<>();
+    private List<String> cart = new LinkedList<>();
+
 
     public Profile(String name) { }
 
@@ -20,6 +22,9 @@ public class Profile {
 
     public List<Coin> getContents() {   return contents;    }
     public void setContents(List<Coin> contents) {      this.contents = contents;   }
+
+    public List<String> getCart() {   return cart;    }
+    public void setCart(List<String> cart) {      this.cart = cart;   }
 
     public List<Coin> add(Coin c) {
         // Check if duplicate content exists

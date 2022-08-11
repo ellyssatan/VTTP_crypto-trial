@@ -1,5 +1,6 @@
 package vttp.crypto_trial;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,8 +23,8 @@ public class AppConfig {
     @Value("${REDIS_PASSWORD}")
     private String redisPassword;
 
-    @Bean
-    public RedisTemplate<String, Object> initRedisTemplate() {
+    @Bean("redis")
+    public RedisTemplate<String, String> initRedisTemplate() {
 
         //Configure Redis database
         RedisStandaloneConfiguration redisConfig = new RedisStandaloneConfiguration();
@@ -43,7 +44,7 @@ public class AppConfig {
 
         // Create RedisTemplate with the client
         //              key   value
-        RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
+        RedisTemplate<String, String> redisTemplate = new RedisTemplate<>();
         redisTemplate.setConnectionFactory(jedisFac);
         redisTemplate.setKeySerializer(new StringRedisSerializer());
         redisTemplate.setValueSerializer(new StringRedisSerializer());

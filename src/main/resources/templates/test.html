@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TOP MARKET CAP FULL DATA</title>
+    <style>
+        table, td {
+            padding: 10px;
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+
+        .row {
+            display: flex;
+        }
+        
+        .column {
+            flex: auto;
+        }
+
+    </style>
+</head>
+<body>
+    <form action="/account/crypto" method="POST">
+        <h1><span data-th-text="${user}"></span>'s Cryptocurrency Dashboard</h1>
+
+        <h1>
+            Top <span data-th-text="${number}"></span> List of Cryptocurrencies
+        </h1>
+        LIMIT:
+        <input type="text" name="number" size="20">
+
+        SYMBOL:
+        <input type="text" name="sym" size="20">
+
+        <button type="submit">Retrieve Results</button>
+    </form>
+    <br><br>
+    <div>
+        <table>
+            <tr>
+                <td>Rank</td>
+                <td>Asset</td>
+                <td>Price</td>
+                <td>Market Cap</td>
+                <td>Volume 24 Hours</td>
+                <td>Open Day</td>
+                <td>High Day</td>
+                <td>Low Day</td>
+                <td>Change PCT Day</td>
+                <td>Change PCT Hour</td>
+                <td>Circulating Supply</td>
+            </tr>
+            
+            <tr data-th-each="c : ${list}">
+                <td>
+                    <span data-th-text="${c.rank}"></span>
+                </td>
+                <td>
+                    <span data-th-text="${c.asset}"></span>
+                </td>
+                <td>
+                    <span data-th-text="${c.price}"></span> 
+                </td>
+                <td>
+                    <span data-th-text="${c.mktCap}"></span> 
+                </td>
+                <td>
+                    <span data-th-text="${c.volume24}"></span> 
+                </td>
+                <td>
+                    <span data-th-text="${c.openDay}"></span> 
+                </td>
+                <td>
+                    <span data-th-text="${c.highDay}"></span> 
+                </td>
+                <td>
+                    <span data-th-text="${c.lowDay}"></span> 
+                </td>
+                <td>
+                    <span data-th-text="${c.changePCTDay}"></span> 
+                </td> 
+                <td>
+                    <span data-th-text="${c.changePCTHour}"></span> 
+                </td> 
+                <td>
+                    <span data-th-text="${c.cirSupply}"></span> 
+                </td> 
+            </tr>
+        </table>
+    </div>
+    
+    <form action="/account/tsym" method="GET">
+        <h1>Cryptocurrency</h1>
+        Cryptocurrency:
+        <input type="text" name="fsym" size="20" placeholder="Cryptocurrency name">
+        Ticker Symbol:
+        <input type="text" name="tsyms" size="20" placeholder="Ticker">
+        <button type="submit">GET</button>    
+    </form>
+
+
+    <div>
+        Price:
+        <span data-th-text="${price}"></span>
+    </div>
+    
+
+    <h2>Add to Watchlist</h2>
+    <form action="/account/watchlist" method="GET">
+        Add to Watchlist (in USD):
+        <input type="text" name="fsyms" placeholder="Ticker Symbol">
+        <button type="submit">Add</button>
+    </form>
+
+    
+    <div>
+        Watchlist
+        <span data-th-text="${contents}"></span>
+    </div>
+                
+    <table>
+        <tr>
+            <td>Name</td>
+            <td>Price</td>
+            <td>Market Cap</td>
+            <td>Volume 24 Hours</td>
+            <td>Open Day</td>
+            <td>High Day</td>
+            <td>Low Day</td>
+            <td>Change PCT Day</td>
+            <td>Change PCT Hour</td>
+            <td>Circulating Supply</td>
+        </tr>
+        
+        <tr data-th-each="c : ${watchlist}">
+            <td>
+                <span data-th-text="${c.name}"></span>
+            </td>
+            <td>
+                <span data-th-text="${c.price}"></span> 
+            </td>
+            <td>
+                <span data-th-text="${c.mktCap}"></span> 
+            </td>
+            <td>
+                <span data-th-text="${c.volume24}"></span> 
+            </td>
+            <td>
+                <span data-th-text="${c.openDay}"></span> 
+            </td>
+            <td>
+                <span data-th-text="${c.highDay}"></span> 
+            </td>
+            <td>
+                <span data-th-text="${c.lowDay}"></span> 
+            </td>
+            <td>
+                <span data-th-text="${c.changePCTDay}"></span> 
+            </td>
+            <td>
+                <span data-th-text="${c.changePCTHour}"></span> 
+            </td>
+            <td>
+                <span data-th-text="${c.cirSupply}"></span> 
+            </td> 
+        </tr>
+    </table>
+</body>
+</html>

@@ -19,7 +19,7 @@ import vttp.crypto_trial.repositories.CoinRepository;
 import vttp.crypto_trial.services.CoinService;
 
 @Controller
-@RequestMapping
+@RequestMapping(path = "/account")
 public class CryptoController {
 
     @Autowired
@@ -28,32 +28,33 @@ public class CryptoController {
     @Autowired
     private CoinRepository cRepo;
 
-    @PostMapping(path = "/account")
+    @PostMapping
     public String getUser(@RequestBody MultiValueMap<String, String> form, Model model) {
 
         String user = form.getFirst("user");
 
         Optional<Profile> p = cRepo.getProfile(user);
-        List<Coin> contents;
+        List<String> contents;
         Profile profile;
 
         if (p.isEmpty()) {
-
+            System.out.println("<<<<NEW USER>>>>");
             profile = new Profile(user);
             System.out.printf(">>> New PROFILE: %s\n", profile);
-            contents = profile.getContents();
+            contents = profile.getCart();
         } else {
             profile = p.get();
             System.out.printf(">>> Loaded PROFILE: %s\n", profile);
             // List of items
-            contents = profile.getContents();
+            contents = profile.getCart();
         }
         
+
         System.out.printf(">>> Contents: %s\n", contents);
 
         model.addAttribute("user", user.toUpperCase());
-        model.addAttribute("contents",  contents);
-        return "account";
+        // model.addAttribute("contents",  contents);
+        return "test";
 
         
     }
@@ -61,14 +62,17 @@ public class CryptoController {
     @PostMapping(path = "/crypto")
     public String getList(@RequestBody MultiValueMap<String, String> form, Model model) {
 
+        String user = form.getFirst("user");
         String limit = form.getFirst("number");
         String tsym = form.getFirst("sym");
 
         List<Coin> list = cSvc.getCoins(limit, tsym);
+        System.out.printf(">> LIST: %s\n", list);
 
+        model.addAttribute("user", user);
         model.addAttribute("number", limit);
         model.addAttribute("list", list);
-        return "account";
+        return "test";
     }
 
     @GetMapping(path = "/tsym")
@@ -78,12 +82,17 @@ public class CryptoController {
         String coinPrice = price.getPrice();
         System.out.printf(">>>>> Price from controller: %s\n\n", price);
 
-
-        // String[] favCoins = request.get
-
-        // List<Coin> list = cSvc.getCoins(limit, tsym);
-
         model.addAttribute("price", coinPrice);
-        return "account";
+        return "test";
+    }
+
+    @GetMapping(path = "/watchlist")
+    public String getWatchlist(@RequestParam String fsyms, Model model) {
+
+        Coin watchlist = cSvc.getWatchlist(fsyms.toUpperCase(), "USD");
+        System.out.printf(">>> Watchlist: %s", watchlist);
+
+        model.addAttribute("watchlist", watchlist);
+        return "test";
     }
 }
